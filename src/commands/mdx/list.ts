@@ -22,9 +22,6 @@ export default class MetadataList extends SfdxCommand {
     type: flags.string({
       char: 't',
       description: messages.getMessage('type')}),
-    all: flags.boolean({
-      default: false,
-      description: messages.getMessage('all')}),
     // createdby: flags.string({
     //   char: 'c',
     //   description: messages.getMessage('createdby')}),
@@ -42,7 +39,7 @@ export default class MetadataList extends SfdxCommand {
     const conn = await this.org.getConnection();
     const mdx: MetadataExplorer = new MetadataExplorer(conn, this.flags.apiversion);
 
-    const options: TableOptions = (this.flags.type || this.flags.all) ? {
+    const options: TableOptions = {
       columns: [
         {key: 'type', label: 'TYPE'},
         {key: 'fullName', label: 'FULL NAME'},
@@ -52,17 +49,12 @@ export default class MetadataList extends SfdxCommand {
         {key: 'lastModifiedDate', label: 'LAST MODIFIED ON'},
         {key: 'lastModifiedByName', label: 'LAST MODIFIED BY'}
       ]
-    } : {
-      columns: [
-        {key: 'xmlName', label: 'XML NAME'}
-      ]
     };
 
     this.result = new MetadataExplorerResult(
       await mdx.list(
-        this.flags.all, 
-        this.flags.type, 
         this.flags.json,
+        this.flags.type, 
         // this.flags.createdby,
         // this.flags.lastmodifiedby
         ), 

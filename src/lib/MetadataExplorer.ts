@@ -34,15 +34,16 @@ export class MetadataExplorer {
         this.apiversion = apiversion;
     }
 
-    public async list(all: boolean, metadataType?: string, raw = false): Promise<AnyJson> {
+    public async list(raw = false, metadataType?: string): Promise<AnyJson> {
         await this.initialize();
         let output: Dictionary[] = [];
-        if (all) {
+        if (metadataType) {
+            output = await this.getStandardMetadataTypeObjects(metadataType, raw);
+        } else {
             cli.action.start('Fetching all metadata objects');
             const types: MetadataObject[] = await this.getStandardMetadataTypes();
             let objects: FileProperties[]
             for (const type of types) {
-                console.log(type.xmlName+' '+output.length);
                 cli.action.status = type.xmlName;
                 objects = await this.getStandardMetadataTypeObjects(type.xmlName, raw);
                 if (objects && objects.length > 0) {
@@ -50,8 +51,6 @@ export class MetadataExplorer {
                 }
                 if (type.childXmlNames) {
                     for (const name of type.childXmlNames) {
-                        console.log(type.xmlName + '/' + name);
-                        cli.action.status = type.xmlName + '/' + name;
                         objects = await this.getStandardMetadataTypeObjects(name, raw);
                         if (objects && objects.length > 0) {
                             output.push.apply(output, objects);
@@ -60,12 +59,14 @@ export class MetadataExplorer {
                 }
             }
             cli.action.stop()
-        } else if (metadataType) {
-            output = await this.getStandardMetadataTypeObjects(metadataType, raw);
-        } else {
-            output = await this.getStandardMetadataTypes() as Dictionary[];
         }
         return output as AnyJson;
+    }
+
+    public async types(): Promise<MetadataObject[]> {
+        await this.initialize();
+        const output: MetadataObject[] = await this.getStandardMetadataTypes();
+        return output;
     }
 
     public async listObjects(filters: ObjectFilter[]): Promise<AnyJson> {
