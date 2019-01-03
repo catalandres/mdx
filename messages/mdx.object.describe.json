@@ -1,0 +1,4 @@
+{
+  "description": "Renders a tree with all metadata objects",
+  "objectFlag": "name to print"
+}

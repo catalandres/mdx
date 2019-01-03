@@ -1,0 +1,6 @@
+{
+  "description": "Renders a tree with all metadata objects",
+  "objectFlag": "name to print",
+  "filter": "filter flag description",
+  "filterError": "Filter not valid (%s)"
+}

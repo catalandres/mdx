@@ -1,0 +1,7 @@
+{
+  "description": "list all the metadata types in an org or, if a type is specified, all the components of that type",
+  "type": "metadata object type",
+  "all": "all flag description",
+  "createdby": "all flag description",
+  "lastmodifiedby": "all flag description"
+}
