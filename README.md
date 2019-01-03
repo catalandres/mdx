@@ -22,7 +22,7 @@ $ npm install -g sfdx-mdx
 $ sfdx-mdx COMMAND
 running command...
 $ sfdx-mdx (-v|--version|version)
-sfdx-mdx/0.1.0 darwin-x64 node-v11.6.0
+sfdx-mdx/0.1.0 darwin-x64 node-v8.9.4
 $ sfdx-mdx --help [COMMAND]
 USAGE
   $ sfdx-mdx COMMAND
@@ -33,6 +33,7 @@ USAGE
 * [`sfdx-mdx mdx:list`](#sfdx-mdx-mdxlist)
 * [`sfdx-mdx mdx:object:describe`](#sfdx-mdx-mdxobjectdescribe)
 * [`sfdx-mdx mdx:object:list`](#sfdx-mdx-mdxobjectlist)
+* [`sfdx-mdx mdx:types`](#sfdx-mdx-mdxtypes)
 
 ## `sfdx-mdx mdx:list`
 
@@ -98,6 +99,27 @@ EXAMPLE
 ```
 
 _See code: [src/commands/mdx/object/list.ts](https://github.com/catalandres/mdx/blob/v0.1.0/src/commands/mdx/object/list.ts)_
+
+## `sfdx-mdx mdx:types`
+
+list all the metadata types in an org
+
+```
+USAGE
+  $ sfdx-mdx mdx:types
+
+OPTIONS
+  -u, --targetusername=targetusername             username or alias for the target org; overrides default target org
+  --apiversion=apiversion                         override the api version used for api requests made by this command
+  --json                                          format output as json
+  --loglevel=(trace|debug|info|warn|error|fatal)  logging level for this command invocation
+
+EXAMPLES
+  $ sfdx mdx:types -u targetusername
+  $ sfdx mdx:types -u targetusername --json
+```
+
+_See code: [src/commands/mdx/types.ts](https://github.com/catalandres/mdx/blob/v0.1.0/src/commands/mdx/types.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin

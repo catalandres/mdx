@@ -68,6 +68,13 @@ export class MetadataExplorer {
         return output as AnyJson;
     }
 
+    public async types(): Promise<MetadataObject[]> {
+        await this.initialize();
+        const output: MetadataObject[] = await this.getStandardMetadataTypes();
+        return output;
+    }
+
+
     public async listObjects(filters: ObjectFilter[]): Promise<AnyJson> {
         await this.initialize();
         let objects: MetadataSObjectResult[] = (await this.conn.describeGlobal()).sobjects as MetadataSObjectResult[];
